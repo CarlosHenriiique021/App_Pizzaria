@@ -1,11 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {  StyleSheet, Text, View, Image, FlatList, FlatListComponent } from 'react-native';
+import ComponentProduct from './ComponentProduct';
+import ComponentProductFlat from './ComponentProductFlat';
 
-export default function App() {
+export default function App(props) {
+
+      const linkImagem = "https://png.pngtree.com/png-vector/20240905/ourmid/pngtree-black-dslr-camera-with-large-lens-clipart-illustration-stock-photo-png-image_13758787.png"
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+
+      <ComponentProductFlat/>
+
+    
     </View>
   );
 }
