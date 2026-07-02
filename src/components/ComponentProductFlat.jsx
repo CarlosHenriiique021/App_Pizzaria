@@ -71,7 +71,6 @@ const styles = StyleSheet.create({
     },
 
     imageProduct: {
-        backgroundColor: "yellow",
         height: 85,
         width: 100,
         marginLeft: 10,
