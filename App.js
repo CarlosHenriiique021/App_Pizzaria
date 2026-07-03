@@ -7,26 +7,35 @@ import ComponentPicker from './src/components/ComponentPicker';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import { Feather } from '@expo/vector-icons'
+
 import Sobre from './src/pages/Sobre/Sobre';
 import Home from './src/pages/Home/Home';
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function App() {
 
   return (
 
-      <NavigationContainer>
+    <NavigationContainer>
 
-        <Stack.Navigator>
+      <Tab.Navigator>
+        <Tab.Screen
+          name='Home'
+          component={Home}
+        />
 
-          <Stack.Screen name='Home' component={Home}/>
-          <Stack.Screen name='Sobre' component={Sobre}/>
+        <Tab.Screen
+          name='Sobre'
+          component={Sobre}
+        />
+      </Tab.Navigator>
 
-        </Stack.Navigator>
 
-      </NavigationContainer>
-
+    </NavigationContainer>
 
   );
 }

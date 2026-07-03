@@ -15,27 +15,31 @@ export default function Home() {
             <ScrollView>
                 <View style={styles.container2}>
 
-                    <View style={styles.textView1}>
+                    <View style={styles.testeView}>
+                        <View style={styles.botao}><Text title="Ir para página sobre" onPress={() => navigation.navigate('Home')}>Home</Text></View>
+                        <View style={styles.botao}><Text title="Ir para página sobre" onPress={() => navigation.navigate('Sobre')}>Sobre</Text></View>
+                        <View style={styles.botao}><Text>Pedido</Text></View>
+                        <View style={styles.botao}><Text>Contato</Text></View>
+                    </View>
+
+                    <View style={styles.testeView2}>
                         <Text style={styles.text}> Temos a pizza mais gostoso do Rio de Janeiro!</Text>
                     </View>
 
                     <View style={styles.containerPizza}>
-
                         <Image
                             source={{ uri: "https://cms-blog.saipos.com/propaganda-delivery-de-pizza-SAIPOS-sistema-para-restaurante.png" }}
-                            style={{ width: '80%', height: '80%' }}
-                            resizeMode='contain'
+                            style={{ width: '100%', height: '100%' }}
                         />
-
                     </View>
 
-                    <View style={styles.textView2}>
+                    <View style={styles.testeView2}>
                         <Text style={styles.text}> Se delicie com nossos incríveis sabores de Pizza!</Text>
                     </View>
 
                     <View>
                         <View>
-                            <ComponentPicker />
+                           
                         </View>
 
                         <View>
@@ -43,12 +47,7 @@ export default function Home() {
                         </View>
                     </View>
 
-                    <View style={styles.buttonPizza}>
-                        <TouchableOpacity>
-                            <View>
-                                <Text title="Ir para página sobre" onPress={() => navigation.navigate('Sobre')} style={styles.textButtonPizza}>Clique Aqui</Text>
-                            </View>
-                        </TouchableOpacity>
+                    <View>
                     </View>
                 </View>
 
@@ -59,16 +58,15 @@ export default function Home() {
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: 'gray',
         flex: 1,
-        backgroundColor: '#686767',
         alignItems: 'center',
         justifyContent: 'center',
     },
 
     container2: {
-        backgroundColor: 'black',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
 
     containerPizza: {
@@ -76,10 +74,6 @@ const styles = StyleSheet.create({
         height: 500,
         justifyContent: 'center',
         alignItems: 'center'
-    },
-
-    containerButton: {
-   
     },
 
     buttonPizza: {
@@ -100,19 +94,34 @@ const styles = StyleSheet.create({
         fontSize: 25,
         borderRadius: 8,
         textAlign: 'center',
-        backgroundColor: 'blue',
-
     },
 
-    textView1: {
-        marginTop: 50,
-        borderRadius: 8,
-        marginBottom: -40
+
+    testeView: {
+        backgroundColor: '#1b1b19',
+        width: '100%',
+        height: 60,
+        flexDirection: 'row',
+        textAlign: 'center',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
     },
 
-    textView2: {
-        marginTop: -40,
-        marginBottom: 60,
-        borderRadius: 8,
-    }
+    testeView2: {
+        backgroundColor: '#ff9900',
+        width: '100%',
+        height: 40,
+        textAlign: 'center',
+        justifyContent: 'center'
+    },
+
+    botao: {
+        backgroundColor: '#ffa600', // Cor de fundo azul
+        paddingVertical: 12,       // Espaçamento interno vertical
+        paddingHorizontal: 24,     // Espaçamento interno horizontal
+        borderRadius: 8,           // Cantos arredondados
+        elevation: 3,              // Sombra leve para Android
+        shadowOpacity: 0.25,
+        shadowRadius: 6,
+    },
 });
