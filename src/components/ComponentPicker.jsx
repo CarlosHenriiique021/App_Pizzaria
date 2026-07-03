@@ -8,11 +8,12 @@ export default function ComponentPicker() {
         <View style={styles.container}>
 
             <Text> Menu de Pizza </Text>
-            <Picker
-                selectedValue={sabor} 
-                onValueChange={(itemValue, itemIndex) => setSabor(itemValue)}
 
-            >
+            <Picker
+                selectedValue={sabor}
+                onValueChange={(itemValue, itemIndex) => setSabor(itemValue)}>
+
+
                 <Picker.Item key={1} value='portuguesa' label='portuguesa' />
                 <Picker.Item key={2} value='frango_catupiry' label='Frango c/ Catupiry' />
                 <Picker.Item key={3} value='queijo' label='4 Queijos' />
@@ -21,7 +22,7 @@ export default function ComponentPicker() {
 
             <Text>
                 {sabor === "" ? "Nenhum sabor selecionado"
-                : `Sabor escolhido: ${sabor}`}
+                    : `Sabor escolhido: ${sabor}`}
 
             </Text>
 
