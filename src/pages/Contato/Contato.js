@@ -5,7 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import ComponentPicker from '../../components/ComponentPicker';
 
 
-export default function Sobre() {
+export default function Contato() {
+
     const navigation = useNavigation();
 
     return (
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
         height: 500,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'yellow'
+        backgroundColor: 'gray'
     },
 
     buttonPizza: {

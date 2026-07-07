@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image, FlatList, FlatListComponent, Button, Tou
 import { Picker, ScrollView } from 'react-native-web';
 import { useNavigation } from '@react-navigation/native';
 import ComponentPicker from '../../components/ComponentPicker';
+import ComponentStorage from '../../components/ComponentStorage';
 
 
 export default function Home() {
@@ -16,10 +17,10 @@ export default function Home() {
                 <View style={styles.container2}>
 
                     <View style={styles.testeView}>
-                        <View style={styles.botao}><Text title="Ir para página sobre" onPress={() => navigation.navigate('Home')}>Home</Text></View>
+                        <View style={styles.botao}><Text title="Ir para página home" onPress={() => navigation.navigate('Home')}>Home</Text></View>
                         <View style={styles.botao}><Text title="Ir para página sobre" onPress={() => navigation.navigate('Sobre')}>Sobre</Text></View>
-                        <View style={styles.botao}><Text>Pedido</Text></View>
-                        <View style={styles.botao}><Text>Contato</Text></View>
+                        <View style={styles.botao}><Text title="Ir para página pedidos" onPress={() => navigation.navigate('Pedido')}>Pedido</Text></View>
+                        <View style={styles.botao}><Text title="Ir para página pedidos" onPress={() => navigation.navigate('Contato')}>Contato</Text></View>
                     </View>
 
                     <View style={styles.testeView2}>
@@ -37,18 +38,6 @@ export default function Home() {
                         <Text style={styles.text}> Se delicie com nossos incríveis sabores de Pizza!</Text>
                     </View>
 
-                    <View>
-                        <View>
-                           
-                        </View>
-
-                        <View>
-
-                        </View>
-                    </View>
-
-                    <View>
-                    </View>
                 </View>
 
             </ScrollView>
