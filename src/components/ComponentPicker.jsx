@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, Text, View, Image, FlatList, FlatListComponent } from 'react-native';
-import { Picker } from 'react-native-web';
+import { Picker } from 'react-native';
 
 export default function ComponentPicker() {
     const [sabor, setSabor] = useState('')

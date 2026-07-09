@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, FlatList, FlatListComponent } from 'react-native';
 import { Feather } from '@expo/vector-icons'
-import { Picker } from 'react-native-web';
+import { Picker } from 'react-native';
 import { useState } from 'react';
 
 
@@ -21,7 +21,11 @@ import Contato from './src/pages/Contato/Contato';
 import Usuario from './src/pages/Usuario/Usuario';
 
 const Tab = createBottomTabNavigator();
-console.log(localStorage);
+// console.log(localStorage);
+const verDados = async () => {
+  const tudo = await AsyncStorage.getItem('usuario');
+  console.log("Dados salvos no celular:", tudo);
+};
 
 export default function App() {
 

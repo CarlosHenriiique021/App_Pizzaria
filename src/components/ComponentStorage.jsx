@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, FlatList, FlatListComponent, Touchable, TouchableOpacity, TextInput } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import { ScrollView } from 'react-native-web';
+import { ScrollView } from 'react-native';
 import { useState } from 'react';
 import Usuario from '../pages/Usuario/Usuario';
 
