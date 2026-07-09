@@ -24,13 +24,19 @@ export default function Home() {
                     </View>
 
                     <View style={styles.testeView2}>
-                        <Text style={styles.text}> Temos a pizza mais gostoso do Rio de Janeiro!</Text>
+                        <Text style={styles.text}> Temos a pizza mais gostosa do Rio de Janeiro!</Text>
                     </View>
 
-                    <View style={styles.containerPizza}>
+                    <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center' }}>
                         <Image
-                            source={{ uri: "https://cms-blog.saipos.com/propaganda-delivery-de-pizza-SAIPOS-sistema-para-restaurante.png" }}
-                            style={{ width: '100%', height: '100%' }}
+                            source={require('../../../assets/Pizzaria/Home.png')}
+                            style={{
+                                width: '100%',
+                                maxWidth: 450,       // Mantém uma largura excelente na tela do PC
+                                height: 600,         // Define uma altura fixa para o panfleto aparecer inteiro
+                                alignSelf: 'center'  // Centraliza na tela
+                            }}
+                            resizeMode="contain"     // Garante que NADA seja cortado (nem o topo, nem o rodapé)
                         />
                     </View>
 
@@ -97,7 +103,7 @@ const styles = StyleSheet.create({
     },
 
     testeView2: {
-        backgroundColor: '#ff9900',
+        backgroundColor: '#F57C00',
         width: '100%',
         height: 40,
         textAlign: 'center',
@@ -105,7 +111,7 @@ const styles = StyleSheet.create({
     },
 
     botao: {
-        backgroundColor: '#ffa600', // Cor de fundo azul
+        backgroundColor: '#F57C00', // Cor de fundo azul
         paddingVertical: 12,       // Espaçamento interno vertical
         paddingHorizontal: 24,     // Espaçamento interno horizontal
         borderRadius: 8,           // Cantos arredondados
