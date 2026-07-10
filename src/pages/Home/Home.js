@@ -1,49 +1,73 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, FlatList, FlatListComponent, Button, TouchableOpacity } from 'react-native';
-import { Picker, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import ComponentPicker from '../../components/ComponentPicker';
-import ComponentStorage from '../../components/ComponentStorage';
+// Importado o 'Platform' para gerenciar o espaçamento dos celulares
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Platform } from 'react-native';
+import { useTheme } from '../../context/ThemeContext';
 
-
-export default function Home() {
-
-    const navigation = useNavigation();
+export default function Home({ navigation }) {
+    const { theme, isDarkMode, toggleTheme } = useTheme();
 
     return (
-        <View style={styles.container}>
+        // View externa adicionada apenas para aplicar o recuo das notificações do celular
+        <View style={[styles.safeAreaContainer, { backgroundColor: theme.background }]}>
 
-            <ScrollView>
-                <View style={styles.container2}>
+            <ScrollView contentContainerStyle={[styles.scrollContainer, { backgroundColor: theme.background }]}>
 
-                    <View style={styles.testeView}>
-                        <View style={styles.botao}><Text title="Ir para página home" onPress={() => navigation.navigate('Home')}>Home</Text></View>
-                        <View style={styles.botao}><Text title="Ir para página sobre" onPress={() => navigation.navigate('Sobre')}>Sobre</Text></View>
-                        <View style={styles.botao}><Text title="Ir para página pedidos" onPress={() => navigation.navigate('Pedido')}>Pedido</Text></View>
-                        <View style={styles.botao}><Text title="Ir para página pedidos" onPress={() => navigation.navigate('Contato')}>Contato</Text></View>
-                    </View>
+                {/* CABEÇALHO DE BOTÕES */}
+                <View style={[styles.headerBotoes, { backgroundColor: isDarkMode ? '#1a1a1a' : '#f0f0f0' }]}>
 
-                    <View style={styles.testeView2}>
-                        <Text style={styles.text}> Temos a pizza mais gostosa do Rio de Janeiro!</Text>
-                    </View>
+                    <TouchableOpacity style={styles.btnMenu} onPress={() => navigation.navigate('Home')}>
+                        <Text style={styles.btnText}>Lar</Text>
+                    </TouchableOpacity>
 
-                    <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center' }}>
-                        <Image
-                            source={require('../../../assets/Pizzaria/Home.png')}
-                            style={{
-                                width: '100%',
-                                maxWidth: 450,       // Mantém uma largura excelente na tela do PC
-                                height: 600,         // Define uma altura fixa para o panfleto aparecer inteiro
-                                alignSelf: 'center'  // Centraliza na tela
-                            }}
-                            resizeMode="contain"     // Garante que NADA seja cortado (nem o topo, nem o rodapé)
-                        />
-                    </View>
+                    <TouchableOpacity style={styles.btnMenu} onPress={() => navigation.navigate('Sobre')}>
+                        <Text style={styles.btnText}>Sobre</Text>
+                    </TouchableOpacity>
 
-                    <View style={styles.testeView2}>
-                        <Text style={styles.text}> Se delicie com nossos incríveis sabores de Pizza!</Text>
-                    </View>
+                    <TouchableOpacity style={styles.btnMenu} onPress={() => navigation.navigate('Pedido')}>
+                        <Text style={styles.btnText}>Pedido</Text>
+                    </TouchableOpacity>
 
+                    <TouchableOpacity style={styles.btnMenu} onPress={() => navigation.navigate('Contato')}>
+                        <Text style={styles.btnText}>Contato</Text>
+                    </TouchableOpacity>
+
+                    {/* BOTÃO DO TEMA INLINE CORRIGIDO PARA FICAR REDONDO */}
+                    <TouchableOpacity
+                        onPress={toggleTheme}
+                        style={[styles.botaoTemaInline, { backgroundColor: theme.buttonBg }]}
+                    >
+                        <Text style={{ fontSize: 18 }}>
+                            {isDarkMode ? "☀️" : "🌙"}
+                        </Text>
+                    </TouchableOpacity>
+
+                </View>
+
+                {/* Faixa promocional */}
+                <View style={styles.faixaTopo}>
+                    <Text style={styles.textoFaixa}>Bateu a fome? Escolha e aproveite!</Text>
+                </View>
+
+                {/* Container da Imagem Dinâmica */}
+                <View style={{ width: '100%', alignItems: 'center', marginVertical: 15 }}>
+                    <Image
+                        source={
+                            isDarkMode
+                                ? require('../../../assets/Pizzaria/Dark/Home.png')
+                                : require('../../../assets/Pizzaria/Light/Home.png')
+                        }
+                        style={{
+                            width: '100%',
+                            maxWidth: 420,
+                            height: 580,
+                            alignSelf: 'center',
+                        }}
+                        resizeMode="contain"
+                    />
+                </View>
+
+                <View style={styles.textoSimples}>
+                    <Text style={styles.textoFaixa}>Sua pizza favorita a um clique.</Text>
                 </View>
 
             </ScrollView>
@@ -52,71 +76,62 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: 'gray',
+    safeAreaContainer: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        // Aplica o espaçamento de 40px no topo apenas se for Android/iOS físico para liberar as notificações
+        paddingTop: Platform.OS === 'web' ? 0 : 40,
     },
-
-    container2: {
-        justifyContent: 'center',
+    scrollContainer: {
+        alignItems: 'center',
+        flexGrow: 1,
+    },
+    faixaTopo: {
+        backgroundColor: '#1EA7E1',
+        width: '100%',
+        padding: 15,
         alignItems: 'center',
     },
-
+    textoFaixa: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#000',
+    },
     containerPizza: {
-        width: 700,
-        height: 500,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
-    buttonPizza: {
-        backgroundColor: '#00f7ff',
-        borderRadius: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 200,
-        height: 80
-    },
-
-    textButtonPizza: {
-        fontSize: 20,
-        textAlign: 'center',
-    },
-
-    text: {
-        fontSize: 25,
-        borderRadius: 8,
-        textAlign: 'center',
-    },
-
-
-    testeView: {
-        backgroundColor: '#1b1b19',
         width: '100%',
-        height: 60,
+        marginVertical: 10,
+    },
+    textoSimples: {
+        backgroundColor: '#1EA7E1',
+        width: '100%',
+        padding: 15,
+        alignItems: 'center',
+    },
+    // Botões
+    headerBotoes: {
         flexDirection: 'row',
-        textAlign: 'center',
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
-    },
-
-    testeView2: {
-        backgroundColor: '#F57C00',
         width: '100%',
-        height: 40,
-        textAlign: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignItems: 'center', // Alinha verticalmente os botões e o círculo do tema
+        paddingVertical: 15,
+        gap: 5,
     },
-
-    botao: {
-        backgroundColor: '#F57C00', // Cor de fundo azul
-        paddingVertical: 12,       // Espaçamento interno vertical
-        paddingHorizontal: 24,     // Espaçamento interno horizontal
-        borderRadius: 8,           // Cantos arredondados
-        elevation: 3,              // Sombra leve para Android
-        shadowOpacity: 0.25,
-        shadowRadius: 6,
+    btnMenu: {
+        backgroundColor: '#1EA7E1',
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 8,
     },
+    btnText: {
+        color: '#000',
+        fontWeight: 'bold',
+    },
+    // Estilo atualizado do botão do tema para ser perfeitamente redondo
+    botaoTemaInline: {
+        width: 44,
+        height: 44,
+        borderRadius: 22, // Metade exata de width/height garante o círculo perfeito
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: 5,
+    }
 });
