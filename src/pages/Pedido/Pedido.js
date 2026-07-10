@@ -1,116 +1,146 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, FlatList, FlatListComponent, Button, TouchableOpacity } from 'react-native';
-import { Picker, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import ComponentPicker from '../../components/ComponentPicker';
+// Importado o 'Platform' para gerenciar o espaçamento dos celulares
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Platform } from 'react-native';
+import { useTheme } from '../../context/ThemeContext';
 
-
-export default function Pedido() {
-
-    const navigation = useNavigation();
+export default function Home({ navigation }) {
+    const { theme, isDarkMode, toggleTheme } = useTheme();
 
     return (
-        <View style={styles.container}>
+        // View externa adicionada apenas para aplicar o recuo das notificações do celular
+        <View style={[styles.safeAreaContainer, { backgroundColor: theme.background }]}>
 
-            <ScrollView>
-                <View style={styles.container2}>
+            {/* 1. CONTÊINER DO CABEÇALHO HORIZONTAL (Isolado em 70px de altura para não quebrar a tela) */}
+            <View style={{ width: '100%', height: 70, backgroundColor: isDarkMode ? '#1a1a1a' : '#f0f0f0' }}>
+                <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.headerBotoes}
+                >
+                    <TouchableOpacity style={styles.btnMenu} onPress={() => navigation.navigate('Home')}>
+                        <Text style={styles.btnText}>Home</Text>
+                    </TouchableOpacity>
 
-                    <View style={styles.testeView}>
-                        <View style={styles.botao}><Text title="Ir para página home" onPress={() => navigation.navigate('Home')}>Home</Text></View>
-                        <View style={styles.botao}><Text title="Ir para página sobre" onPress={() => navigation.navigate('Sobre')}>Sobre</Text></View>
-                        <View style={styles.botao}><Text title="Ir para página pedidos" onPress={() => navigation.navigate('Pedido')}>Pedido</Text></View>
-                        <View style={styles.botao}><Text title="Ir para página pedidos" onPress={() => navigation.navigate('Contato')}>Contato</Text></View>
-                    </View>
+                    <TouchableOpacity style={styles.btnMenu} onPress={() => navigation.navigate('Sobre')}>
+                        <Text style={styles.btnText}>Sobre</Text>
+                    </TouchableOpacity>
 
-                    <View style={styles.testeView2}>
-                        <Text style={styles.text}> Temos a pizza mais gostoso do Rio de Janeiro!</Text>
-                    </View>
+                    <TouchableOpacity style={styles.btnMenu} onPress={() => navigation.navigate('Pedido')}>
+                        <Text style={styles.btnText}>Pedido</Text>
+                    </TouchableOpacity>
 
-                    <View style={styles.containerPizza}>
+                    <TouchableOpacity style={styles.btnMenu} onPress={() => navigation.navigate('Contato')}>
+                        <Text style={styles.btnText}>Contato</Text>
+                    </TouchableOpacity>
 
-                    </View>
+                    <TouchableOpacity style={styles.btnMenu} onPress={() => navigation.navigate('Usuario')}>
+                        <Text style={styles.btnText}>Usuário</Text>
+                    </TouchableOpacity>
 
-                    <View style={styles.testeView2}>
-                        <Text style={styles.text}> Se delicie com nossos incríveis sabores de Pizza!</Text>
-                    </View>
+                    {/* BOTÃO DO TEMA INLINE REDONDO */}
+                    <TouchableOpacity
+                        onPress={toggleTheme}
+                        style={[styles.botaoTemaInline, { backgroundColor: theme.buttonBg }]}
+                    >
+                        <Text style={{ fontSize: 18 }}>
+                            {isDarkMode ? "☀️" : "🌙"}
+                        </Text>
+                    </TouchableOpacity>
+                </ScrollView>
+            </View>
 
-                    <View style={styles.containerPizza}>
+            {/* 2. ROLAGEM PRINCIPAL DA TELA (Rola tudo para baixo normalmente) */}
+            <ScrollView contentContainerStyle={[styles.scrollContainer, { backgroundColor: theme.background }]}>
 
-                    </View>
+                {/* Faixa promocional */}
+                <View style={styles.faixaTopo}>
+                    <Text style={styles.textoFaixa}>Bateu a fome? Escolha e aproveite!</Text>
+                </View>
+
+                {/* Container da Imagem Dinâmica */}
+                <View style={{ width: '100%', alignItems: 'center', marginVertical: 15 }}>
+                    <Image
+                        source={
+                            isDarkMode
+                                ? require('../../../assets/Pizzaria/Dark/Pedido.png')
+                                : require('../../../assets/Pizzaria/Light/Pedido.png')
+                        }
+                        style={{
+                            width: '100%',
+                            maxWidth: 420,
+                            height: 580,
+                            alignSelf: 'center',
+                        }}
+                        resizeMode="contain"
+                    />
+                </View>
+
+                {/* Faixa inferior */}
+                <View style={styles.textoSimples}>
+                    <Text style={styles.textoFaixa}>Sua pizza favorita a um clique.</Text>
                 </View>
 
             </ScrollView>
-        </View>
+        </View >
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: 'gray',
+    safeAreaContainer: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        // Aplica o espaçamento de 40px no topo apenas se for Android/iOS físico para liberar as notificações
+        paddingTop: Platform.OS === 'web' ? 0 : 40,
     },
-
-    container2: {
-        justifyContent: 'center',
+    scrollContainer: {
+        alignItems: 'center',
+        flexGrow: 1,
+    },
+    faixaTopo: {
+        backgroundColor: '#1EA7E1',
+        width: '100%',
+        padding: 15,
         alignItems: 'center',
     },
-
+    textoFaixa: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#000',
+    },
     containerPizza: {
-        width: 700,
-        height: 500,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'blue'
-    },
-
-    buttonPizza: {
-        backgroundColor: '#00f7ff',
-        borderRadius: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 200,
-        height: 80
-    },
-
-    textButtonPizza: {
-        fontSize: 20,
-        textAlign: 'center',
-    },
-
-    text: {
-        fontSize: 25,
-        borderRadius: 8,
-        textAlign: 'center',
-    },
-
-
-    testeView: {
-        backgroundColor: '#1b1b19',
         width: '100%',
-        height: 60,
+        marginVertical: 10,
+    },
+    textoSimples: {
+        backgroundColor: '#1EA7E1',
+        width: '100%',
+        padding: 15,
+        alignItems: 'center',
+    },
+    // Botões
+    headerBotoes: {
         flexDirection: 'row',
-        textAlign: 'center',
-        justifyContent: 'space-evenly',
         alignItems: 'center',
+        paddingHorizontal: 20, // Dá o espaço inicial e final para a rolagem ficar bonita
+        gap: 10,
+        height: '100%', // Força o carrossel a alinhar tudo usando os 70px da View pai
     },
-
-    testeView2: {
-        backgroundColor: '#ff9900',
-        width: '100%',
-        height: 40,
-        textAlign: 'center',
-        justifyContent: 'center'
+    btnMenu: {
+        backgroundColor: '#1EA7E1',
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 8,
     },
-
-    botao: {
-        backgroundColor: '#ffa600', // Cor de fundo azul
-        paddingVertical: 12,       // Espaçamento interno vertical
-        paddingHorizontal: 24,     // Espaçamento interno horizontal
-        borderRadius: 8,           // Cantos arredondados
-        elevation: 3,              // Sombra leve para Android
-        shadowOpacity: 0.25,
-        shadowRadius: 6,
+    btnText: {
+        color: '#000',
+        fontWeight: 'bold',
     },
+    // Botão redondo do tema
+    botaoTemaInline: {
+        width: 44,
+        height: 44,
+        borderRadius: 22, // Círculo perfeito
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: 5,
+    }
 });

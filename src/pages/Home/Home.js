@@ -10,13 +10,15 @@ export default function Home({ navigation }) {
         // View externa adicionada apenas para aplicar o recuo das notificações do celular
         <View style={[styles.safeAreaContainer, { backgroundColor: theme.background }]}>
 
-            <ScrollView contentContainerStyle={[styles.scrollContainer, { backgroundColor: theme.background }]}>
-
-                {/* CABEÇALHO DE BOTÕES */}
-                <View style={[styles.headerBotoes, { backgroundColor: isDarkMode ? '#1a1a1a' : '#f0f0f0' }]}>
-
+            {/* 1. CONTÊINER DO CABEÇALHO HORIZONTAL (Isolado em 70px de altura para não quebrar a tela) */}
+            <View style={{ width: '100%', height: 70, backgroundColor: isDarkMode ? '#1a1a1a' : '#f0f0f0' }}>
+                <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.headerBotoes}
+                >
                     <TouchableOpacity style={styles.btnMenu} onPress={() => navigation.navigate('Home')}>
-                        <Text style={styles.btnText}>Lar</Text>
+                        <Text style={styles.btnText}>Home</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.btnMenu} onPress={() => navigation.navigate('Sobre')}>
@@ -31,7 +33,11 @@ export default function Home({ navigation }) {
                         <Text style={styles.btnText}>Contato</Text>
                     </TouchableOpacity>
 
-                    {/* BOTÃO DO TEMA INLINE CORRIGIDO PARA FICAR REDONDO */}
+                    <TouchableOpacity style={styles.btnMenu} onPress={() => navigation.navigate('Usuario')}>
+                        <Text style={styles.btnText}>Usuário</Text>
+                    </TouchableOpacity>
+
+                    {/* BOTÃO DO TEMA INLINE REDONDO */}
                     <TouchableOpacity
                         onPress={toggleTheme}
                         style={[styles.botaoTemaInline, { backgroundColor: theme.buttonBg }]}
@@ -40,8 +46,11 @@ export default function Home({ navigation }) {
                             {isDarkMode ? "☀️" : "🌙"}
                         </Text>
                     </TouchableOpacity>
+                </ScrollView>
+            </View>
 
-                </View>
+            {/* 2. ROLAGEM PRINCIPAL DA TELA (Rola tudo para baixo normalmente) */}
+            <ScrollView contentContainerStyle={[styles.scrollContainer, { backgroundColor: theme.background }]}>
 
                 {/* Faixa promocional */}
                 <View style={styles.faixaTopo}>
@@ -66,12 +75,13 @@ export default function Home({ navigation }) {
                     />
                 </View>
 
+                {/* Faixa inferior */}
                 <View style={styles.textoSimples}>
                     <Text style={styles.textoFaixa}>Sua pizza favorita a um clique.</Text>
                 </View>
 
             </ScrollView>
-        </View>
+        </View >
     );
 }
 
@@ -109,11 +119,10 @@ const styles = StyleSheet.create({
     // Botões
     headerBotoes: {
         flexDirection: 'row',
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center', // Alinha verticalmente os botões e o círculo do tema
-        paddingVertical: 15,
-        gap: 5,
+        alignItems: 'center',
+        paddingHorizontal: 20, // Dá o espaço inicial e final para a rolagem ficar bonita
+        gap: 10,
+        height: '100%', // Força o carrossel a alinhar tudo usando os 70px da View pai
     },
     btnMenu: {
         backgroundColor: '#1EA7E1',
@@ -125,11 +134,11 @@ const styles = StyleSheet.create({
         color: '#000',
         fontWeight: 'bold',
     },
-    // Estilo atualizado do botão do tema para ser perfeitamente redondo
+    // Botão redondo do tema
     botaoTemaInline: {
         width: 44,
         height: 44,
-        borderRadius: 22, // Metade exata de width/height garante o círculo perfeito
+        borderRadius: 22, // Círculo perfeito
         alignItems: 'center',
         justifyContent: 'center',
         marginLeft: 5,
