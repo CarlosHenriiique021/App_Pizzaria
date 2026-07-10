@@ -2,16 +2,12 @@ import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-// Páginas
+import { ThemeProvider } from './src/context/ThemeContext';
 import Sobre from './src/pages/Sobre/Sobre';
 import Home from './src/pages/Home/Home';
 import Pedido from './src/pages/Pedido/Pedido';
 import Contato from './src/pages/Contato/Contato';
 import Usuario from './src/pages/Usuario/Usuario';
-
-// Contexto do Tema
-import { ThemeProvider } from './src/context/ThemeContext';
 
 const Tab = createBottomTabNavigator();
 
@@ -21,8 +17,8 @@ export default function App() {
       <NavigationContainer>
         <Tab.Navigator
           screenOptions={{
-            headerShown: false,      // Esconde o título padrão do topo "Lar"
-            tabBarStyle: { display: 'none' } // Esconde de vez os botões do rodapé
+            headerShown: false,
+            tabBarStyle: { display: 'none' }
           }}
         >
           <Tab.Screen name='Home' component={Home} />
